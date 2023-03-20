@@ -22,9 +22,9 @@
                         <td class="table-active">{{$post['created_at']}}</td>
                         <td class="table-active">
                             <div class="btn-group" role="group" aria-label="Basic outlined example">
-                            <a type="button" class="btn btn-outline-primary" href="{{route('posts.show', $post['id'])}}">View</a>
-                            <a type="button" class="btn btn-outline-primary" href="{{route('posts.edit', $post['id'])}}">Edit</a>
-                            <a type="button" class="btn btn-outline-primary">Delete</a>
+                                <a type="button" class="btn btn-outline-primary" href="{{route('posts.show', $post['id'])}}">View</a>
+                                <a type="button" class="btn btn-outline-primary" href="{{route('posts.edit', $post['id'])}}">Edit</a>
+                                <a type="button" class="btn btn-outline-primary">Delete</a>
                             </div>
                         </td>
                     </tr>
