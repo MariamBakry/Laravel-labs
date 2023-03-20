@@ -36,7 +36,7 @@ class PostController extends Controller
     }
 
     public function store(){
-        return view('post.index');
+        return to_route('post.index');
     }
 
     public function edit(){
@@ -48,6 +48,10 @@ class PostController extends Controller
             'description' => 'Hello from PHP'
         ];
         return view('post.edit', ['post' => $post]);
+    }
+
+    public function update(){
+        return to_route('post.index');
     }
 
 
