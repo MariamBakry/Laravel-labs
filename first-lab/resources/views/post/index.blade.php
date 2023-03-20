@@ -1,0 +1,34 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="table-responsive" style="padding: 30px;">
+        <a type="button" class="btn btn-outline-primary" style="text-align: center;" href="{{route('posts.create')}}">Create</a>
+        <table class="table" style="text-align: center;">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Title</th>
+                <th scope="col">Posted By</th>
+                <th scope="col">Created At</th>
+                <th scope="col"></th>
+            </tr>
+
+        @foreach($posts as $post)
+                <tbody>
+                    <tr>
+                        <th scope="row" class="table-active">{{$post['id']}}</th>
+                        <td class="table-active">{{$post['title']}}</td>
+                        <td class="table-active">{{$post['posted_by']}}</td>
+                        <td class="table-active">{{$post['created_at']}}</td>
+                        <td class="table-active">
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                            <a type="button" class="btn btn-outline-primary" href="{{route('posts.show', $post['id'])}}">View</a>
+                            <a type="button" class="btn btn-outline-primary" href="{{route('posts.edit', $post['id'])}}">Edit</a>
+                            <a type="button" class="btn btn-outline-primary">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+        @endforeach
+        </table>
+@endsection
