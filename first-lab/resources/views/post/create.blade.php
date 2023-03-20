@@ -2,6 +2,7 @@
 
 @section('content')
 <form style="padding: 30px;" action="{{route('posts.store')}}" method="post">
+@csrf
 <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Title</label>
     <input type="email" class="form-control" id="title" aria-describedby="emailHelp">

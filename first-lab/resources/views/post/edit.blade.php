@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<form style="padding: 30px;" action="{{route('posts.update')}}" method="put">
+<form style="padding: 30px;" action="{{route('posts.update')}}" method="post">
+@csrf
+@method("put")
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Title</label>
     <input type="email" class="form-control" id="title" aria-describedby="emailHelp">
