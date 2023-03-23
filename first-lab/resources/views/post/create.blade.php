@@ -9,7 +9,11 @@
   </div>
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Post creator</label>
-    <input type="email" class="form-control" id="creator" aria-describedby="emailHelp">
+    <select class="form-select" aria-label="Default select example">
+      @foreach($posts as $post)
+        <option value="{{$post['posted_by']}}">{{$post['posted_by']}}</option>
+      @endforeach
+    </select>
   </div>
   <div class="form-floating">
     <textarea class="form-control" placeholder="Leave a comment here" id="description" style="height: 100px"></textarea>
