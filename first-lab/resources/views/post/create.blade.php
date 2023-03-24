@@ -5,18 +5,18 @@
 @csrf
 <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Title</label>
-    <input type="email" class="form-control" id="title" aria-describedby="emailHelp">
+    <input type="text" class="form-control" id="title" name="title" aria-describedby="emailHelp">
   </div>
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Post creator</label>
-    <select class="form-select" aria-label="Default select example">
-      @foreach($posts as $post)
-        <option value="{{$post['posted_by']}}">{{$post['posted_by']}}</option>
+    <select  name='post_creator' class="form-select" aria-label="Default select example">
+      @foreach($users as $user)
+        <option value="{{$user->id}}">{{$user->name}}</option>
       @endforeach
     </select>
   </div>
   <div class="form-floating">
-    <textarea class="form-control" placeholder="Leave a comment here" id="description" style="height: 100px"></textarea>
+    <textarea class="form-control" name="description" placeholder="Leave a comment here" id="description" style="height: 100px"></textarea>
     <label for="floatingTextarea2">Description</label>
   </div>
   <button type="submit" class="btn btn-primary" style="margin-top:10px;">Submit</button>

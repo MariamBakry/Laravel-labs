@@ -17,7 +17,11 @@
             Post creator info
         </div>
         <div class="card-body">
-            <h5 class="card-title">Name: {{$post['posted_by']}}</h5>
+            @if($post->user)
+                <h5 class="card-title">Name: {{$post->user->name}}</h5>
+            @else
+                <h5 class="card-title">Name: Not found</h5>
+            @endif
             <p class="card-text">Email: {{$post['posted_by']}}123@gmail.com</p>
         </div>
         

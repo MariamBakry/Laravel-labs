@@ -16,10 +16,14 @@
         @foreach($posts as $post)
                 <tbody>
                     <tr>
-                        <th scope="row" class="table-active">{{$post['id']}}</th>
-                        <td class="table-active">{{$post['title']}}</td>
-                        <td class="table-active">{{$post['posted_by']}}</td>
-                        <td class="table-active">{{$post['created_at']}}</td>
+                        <th scope="row" class="table-active">{{$post->id}}</th>
+                        <td class="table-active">{{$post->title}}</td>
+                        @if($post->user)
+                            <td class="table-active">{{$post->user->name}}</td>
+                        @else
+                            <td class="table-active">Not found</td>
+                        @endif
+                        <td class="table-active">{{$post->created_at}}</td>
                         <td class="table-active">
                             <div class="btn-group" role="group" aria-label="Basic outlined example">
                                 <x-button class="btn btn-outline-primary"><a style="text-decoration: none;" href="{{route('posts.show', $post['id'])}}">View</a></x-button>
