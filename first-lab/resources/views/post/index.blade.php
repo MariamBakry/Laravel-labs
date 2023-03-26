@@ -12,8 +12,9 @@
                 <th scope="col">Created At</th>
                 <th scope="col"></th>
             </tr>
-
+        
         @foreach($posts as $post)
+        @csrf
                 <tbody>
                     <tr>
                         <th scope="row" class="table-active">{{$post->id}}</th>
@@ -26,9 +27,13 @@
                         <td class="table-active">{{$post->created_at}}</td>
                         <td class="table-active">
                             <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                <x-button class="btn btn-outline-primary"><a style="text-decoration: none;" href="{{route('posts.show', $post['id'])}}">View</a></x-button>
-                                <x-button class="btn btn-outline-primary"><a style="text-decoration: none;"  href="{{route('posts.edit', $post['id'])}}">Edit</a></x-button>
-                                <x-button class="btn btn-outline-primary">Delete</x-button>
+                                <x-button class="btn btn-outline-primary"><a style="text-decoration: none;" href="{{route('posts.show', $post->id)}}">View</a></x-button>
+                                <x-button class="btn btn-outline-primary"><a style="text-decoration: none;"  href="{{route('posts.edit', $post->id)}}">Edit</a></x-button>
+                                <form action="{{ route('posts.destroy', $post->id)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                        <button type='submit' class="btn btn-outline-primary" >Delete</button>
+                                </form>
                             </div>
                         </td>
                     </tr>
