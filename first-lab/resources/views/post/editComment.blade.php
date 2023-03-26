@@ -1,13 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<form style="padding: 30px;" action="{{route('posts.update', $post->id)}}" method="post">
+<form style="padding: 30px;" action="{{route('posts.updateComment',$comment->id)}}" method="post">
 @csrf
 @method("put")
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Title</label>
-    <input name='title' type="text" class="form-control" id="title" aria-describedby="emailHelp" required>
-  </div>
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Post creator</label>
     <select name='post_creator' class="form-select" aria-label="Default select example">

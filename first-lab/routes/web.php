@@ -16,18 +16,24 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/posts',[PostController::class, 'index']) -> name('posts.index');
 
-Route::delete('/posts/{post}', [PostController::class, 'destroy']) -> name('posts.destroy');
-
-Route::patch('/posts',[PostController::class, 'storeComment']) -> name('posts.storeComment');
-
 Route::get('/posts/create', [PostController::class, 'create']) -> name('posts.create');
 
 Route::post('/posts',[PostController::class, 'store']) -> name('posts.store');
 
-Route::get('/posts/{post}/edit',[PostController::class, 'edit']) -> name('posts.edit');
-
-Route::put('/posts',[PostController::class, 'update']) -> name('posts.update');
+Route::post('/posts/{post}/comment',[PostController::class, 'storeComment']) -> name('posts.storeComment');
 
 Route::get('/posts/{post}',[PostController::class, 'show']) -> name('posts.show');
+
+Route::get('/posts/{post}/edit',[PostController::class, 'edit']) -> name('posts.edit');
+
+Route::get('/posts/edit/{comment}',[PostController::class, 'editComment']) -> name('posts.editComment');
+
+Route::put('/posts/{post}',[PostController::class, 'update']) -> name('posts.update');
+
+Route::put('/posts/comment/{comment}',[PostController::class, 'updateComment']) -> name('posts.updateComment');
+
+Route::delete('/posts/{post}', [PostController::class, 'destroy']) -> name('posts.destroy');
+
+//Route::delete('/posts/comment/{comment}', [PostController::class, 'destroyComment']) -> name('posts.destroyComment');
 
 
