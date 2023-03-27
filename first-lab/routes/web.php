@@ -34,6 +34,6 @@ Route::put('/posts/comment/{comment}',[PostController::class, 'updateComment']) 
 
 Route::delete('/posts/{post}', [PostController::class, 'destroy']) -> name('posts.destroy');
 
-//Route::delete('/posts/comment/{comment}', [PostController::class, 'destroyComment']) -> name('posts.destroyComment');
+Route::delete('/posts/comment/{comment}', [PostController::class, 'destroyComment']) -> name('posts.destroyComment');
 
 

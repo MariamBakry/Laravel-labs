@@ -78,11 +78,3 @@
         </script>
 @endsection
 
-
-
-<!-- <form action="#" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                        <button type='submit' class="btn btn-outline-primary" >Delete</button>
-                                </form> -->
-
