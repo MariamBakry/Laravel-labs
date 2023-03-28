@@ -8,6 +8,7 @@
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Title</th>
+                <th scope="col">Slug</th>
                 <th scope="col">Posted By</th>
                 <th scope="col">Created At</th>
                 <th scope="col"></th>
@@ -19,6 +20,7 @@
                     <tr>
                         <th scope="row" class="table-active">{{$post->id}}</th>
                         <td class="table-active">{{$post->title}}</td>
+                        <td class="table-active">{{$post->slug}}</td>
                         @if($post->user)
                             <td class="table-active">{{$post->user->name}}</td>
                         @else

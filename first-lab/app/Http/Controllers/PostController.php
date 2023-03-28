@@ -60,7 +60,7 @@ class PostController extends Controller
             'title' => $title,
             'description' => $description,
             'user_id' => $postCreator
-        ]);
+        ])->replicate();
         return to_route('posts.index');
     }
 
@@ -81,7 +81,7 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->description = $request->description;
         $post->user_id = $request->post_creator;
-        // $post->slug = Str::slug($request['title']);
+        $post->slug = Str::slug($request['title']);
         $post->save();
         return to_route('posts.show', $id);
     }
