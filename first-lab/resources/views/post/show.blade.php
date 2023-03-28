@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-        <img src="{{asset('/storage/' . $post->image_path)}}" class="img-fluid" alt="Responsive image">
         <div class="card" style="margin-top:10px; padding: 30px;">
         <div class="card-header">
             Post info
@@ -12,7 +11,9 @@
             <p class="card-text">Created at: {{$post->created_at}}</p>
         </div>
         </div>
-
+        <div class="card" style="margin-top:10px; padding: 30px;">
+            <img src="{{ url('public/Image/'.$post->image) }}" style="height: 200px; width: 300px;" class="img-fluid" alt="Responsive image">
+        </div>
         <div class="card" style="margin-top:10px; padding: 30px;">
         <div class="card-header">
             Post creator info

@@ -29,15 +29,14 @@ class PostController extends Controller
             'post' => $post,
             'users' => $users,
             'comments' => $comments,
-            'image_path' => $post->image_path
         ]);
     }
 
     public function destroy($id){
         $post = Post::find($id);
 
-        if ($post->image_path && Storage::exists("public/" . $post->image_path)) {
-            Storage::delete("public/" . $post->image_path);
+        if ($post->image) {
+            Storage::delete("public/" . $post->image);
         }
         Comment::where('post_id', '=', $id)->delete();
         $post -> delete();
@@ -73,18 +72,15 @@ class PostController extends Controller
             'title' => $title,
             'description' => $description,
             'user_id' => $postCreator
-        ])->replicate();
+        ]);
 
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $filename = $image->getClientOriginalName();
-            $path = Storage::putFileAs('public/posts', $image, $filename);
-            $post_image = explode("/", $path);
-            array_shift($post_image);
-            $post_image = join("/", $post_image);
-            $post->image_path = $post_image;
-            $post->save();
+        if($request->file('image')){
+            $file= $request->file('image');
+            $filename= date('YmdHi').$file->getClientOriginalName();
+            $file-> move(public_path('public/Image'), $filename);
+            $post['image']= $filename;
         }
+        $post->save();
         return to_route('posts.index');
     }
 
@@ -104,8 +100,8 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
 
         if ($request->hasFile('image')) {
-            if ($post->image_path) {
-                Storage::delete("public/" . $post->image_path);
+            if ($post->image) {
+                Storage::delete("public/" . $post->image);
             }
             $image = $request->file('image');
             $filename = $image->getClientOriginalName();
@@ -113,7 +109,7 @@ class PostController extends Controller
             $post_image = explode("/", $path);
             array_shift($post_image);
             $post_image = join("/", $post_image);
-            $post->image_path = $post_image;
+            $post->image = $post_image;
         }
         $post->title = $request->title;
         $post->description = $request->description;
