@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -80,6 +81,7 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->description = $request->description;
         $post->user_id = $request->post_creator;
+        // $post->slug = Str::slug($request['title']);
         $post->save();
         return to_route('posts.show', $id);
     }
@@ -94,10 +96,6 @@ class PostController extends Controller
     }
 
     public function storeComment(Request $request, $id){
-        // $request->validate([
-        //     'description' => ['required', 'min:5'],
-        // ]);
-
         $description = $request->comment_description;
         $postCreator = $request->post_creator;
 
