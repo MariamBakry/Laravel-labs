@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+        <img src="{{asset('/storage/' . $post->image_path)}}" class="img-fluid" alt="Responsive image">
         <div class="card" style="margin-top:10px; padding: 30px;">
         <div class="card-header">
             Post info

@@ -11,6 +11,8 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+use Illuminate\Support\Facades\Storage;
+
 class PostController extends Controller
 {
     public function index(){
@@ -23,12 +25,22 @@ class PostController extends Controller
         $post = Post::find($id);
         $users = User::all();
         $comments = Comment::where('post_id', '=', $id)->get();
-        return view('post.show', ['post' => $post, 'users' => $users, 'comments' => $comments]);
+        return view('post.show', [
+            'post' => $post,
+            'users' => $users,
+            'comments' => $comments,
+            'image_path' => $post->image_path
+        ]);
     }
 
     public function destroy($id){
+        $post = Post::find($id);
+
+        if ($post->image_path && Storage::exists("public/" . $post->image_path)) {
+            Storage::delete("public/" . $post->image_path);
+        }
         Comment::where('post_id', '=', $id)->delete();
-        Post::find($id) -> delete();
+        $post -> delete();
         return to_route('posts.index');
     }
 
@@ -57,11 +69,22 @@ class PostController extends Controller
         $description = $request->description;
         $postCreator = $request->post_creator;
 
-        Post::create([
+        $post = Post::create([
             'title' => $title,
             'description' => $description,
             'user_id' => $postCreator
         ])->replicate();
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = $image->getClientOriginalName();
+            $path = Storage::putFileAs('public/posts', $image, $filename);
+            $post_image = explode("/", $path);
+            array_shift($post_image);
+            $post_image = join("/", $post_image);
+            $post->image_path = $post_image;
+            $post->save();
+        }
         return to_route('posts.index');
     }
 
@@ -78,7 +101,20 @@ class PostController extends Controller
     }
 
     public function update(StorePostRequest $request, $id){
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
+
+        if ($request->hasFile('image')) {
+            if ($post->image_path) {
+                Storage::delete("public/" . $post->image_path);
+            }
+            $image = $request->file('image');
+            $filename = $image->getClientOriginalName();
+            $path = Storage::putFileAs('public/posts', $image, $filename);
+            $post_image = explode("/", $path);
+            array_shift($post_image);
+            $post_image = join("/", $post_image);
+            $post->image_path = $post_image;
+        }
         $post->title = $request->title;
         $post->description = $request->description;
         $post->user_id = $request->post_creator;

@@ -11,7 +11,7 @@
     </div>
   @endif
 
-<form style="padding: 30px;" action="{{route('posts.store')}}" method="post">
+<form style="padding: 30px;" action="{{route('posts.store')}}" method="post" enctype="multipart/form-data">
 @csrf
 <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Title</label>
@@ -29,6 +29,13 @@
     <textarea class="form-control" name="description" placeholder="Leave a comment here" id="description" style="height: 100px" required></textarea>
     <label for="floatingTextarea2">Description</label>
   </div>
+
+  <div class="mb-3">
+    <label for="exampleInputImage" class="form-label fs-4">Insert Image </label>
+    <i class="text-secondary"> (Optional)</i>
+    <input type="file" name="image" accept=".jpg,.png" class="form-control" id="exampleInputImage">
+  </div>
+
   <button type="submit" class="btn btn-primary" style="margin-top:10px;">Submit</button>
 </form>
 @endsection
