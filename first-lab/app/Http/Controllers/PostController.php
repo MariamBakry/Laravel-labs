@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -40,7 +42,15 @@ class PostController extends Controller
         return view('post.create', ['users' => $users]);
     }
 
-    public function store(Request $request){
+    public function store(StorePostRequest $request){
+        // $request->validate([
+        //     'title' => ['required', 'min:3'],
+        //     'description' => ['required', 'min:5'],
+        // ],[
+        //     'title.required' => 'my custom message',
+        //     'title.min' => 'minimum custom message',
+        // ]);
+
         $title = $request->title;
         $description = $request->description;
         $postCreator = $request->post_creator;
@@ -65,7 +75,7 @@ class PostController extends Controller
         return view('post.editComment', ['users' => $users, 'comment' => $comment]);
     }
 
-    public function update(Request $request, $id){
+    public function update(StorePostRequest $request, $id){
         $post = Post::find($id);
         $post->title = $request->title;
         $post->description = $request->description;
@@ -84,6 +94,10 @@ class PostController extends Controller
     }
 
     public function storeComment(Request $request, $id){
+        // $request->validate([
+        //     'description' => ['required', 'min:5'],
+        // ]);
+
         $description = $request->comment_description;
         $postCreator = $request->post_creator;
 

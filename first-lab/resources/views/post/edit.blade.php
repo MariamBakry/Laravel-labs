@@ -1,6 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+  @if ($errors->any())
+    <div class="alert alert-danger">
+      <ul>
+        @foreach ($errors->all() as $error)
+          <li>{{$error}}</li>
+        @endforeach
+      </ul>
+    </div>
+  @endif
+
 <form style="padding: 30px;" action="{{route('posts.update', $post->id)}}" method="post">
 @csrf
 @method("put")
