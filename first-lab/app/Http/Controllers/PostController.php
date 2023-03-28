@@ -36,7 +36,7 @@ class PostController extends Controller
         $post = Post::find($id);
 
         if ($post->image) {
-            Storage::delete("public/" . $post->image);
+            Storage::delete("public/Image" . $post->image);
         }
         Comment::where('post_id', '=', $id)->delete();
         $post -> delete();
@@ -101,15 +101,12 @@ class PostController extends Controller
 
         if ($request->hasFile('image')) {
             if ($post->image) {
-                Storage::delete("public/" . $post->image);
+                Storage::delete("public/Image" . $post->image);
             }
-            $image = $request->file('image');
-            $filename = $image->getClientOriginalName();
-            $path = Storage::putFileAs('public/posts', $image, $filename);
-            $post_image = explode("/", $path);
-            array_shift($post_image);
-            $post_image = join("/", $post_image);
-            $post->image = $post_image;
+            $file= $request->file('image');
+            $filename= date('YmdHi').$file->getClientOriginalName();
+            $file-> move(public_path('public/Image'), $filename);
+            $post['image']= $filename;
         }
         $post->title = $request->title;
         $post->description = $request->description;
