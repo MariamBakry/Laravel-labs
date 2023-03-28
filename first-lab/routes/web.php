@@ -21,6 +21,8 @@ Route::group(['middleware' => ['auth']], function(){
 
     Route::get('/posts/create', [PostController::class, 'create']) -> name('posts.create');
 
+    Route::get("/posts/removeOld",[PostController::class, "removeOldPosts"]);
+
     Route::post('/posts',[PostController::class, 'store']) -> name('posts.store');
 
     Route::post('/posts/{post}/comment',[PostController::class, 'storeComment']) -> name('posts.storeComment');

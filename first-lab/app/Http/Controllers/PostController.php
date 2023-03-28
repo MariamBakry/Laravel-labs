@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
+use App\Jobs\PruneOldPostsJop;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
@@ -106,6 +107,12 @@ class PostController extends Controller
         ]);
 
         return to_route('posts.show', $id);
+    }
+
+
+    public function removeOldPosts() {
+        PruneOldPostsJop::dispatch();
+        return redirect()->route("posts.index");
     }
 
 
