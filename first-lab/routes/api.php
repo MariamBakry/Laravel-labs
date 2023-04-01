@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\PostController as ApiPostController;
+use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +19,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('posts',[\App\Http\Controllers\Api\PostController::class, 'index']);
+Route::get('posts/{post}',[\App\Http\Controllers\Api\PostController::class, 'show']);
+Route::post('posts',[\App\Http\Controllers\Api\PostController::class, 'store']);
+
+
+// if($request->header('Accept') == 'application/pdf'){
+//     return the pdf;
+// }
