@@ -3,6 +3,8 @@
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -45,3 +47,12 @@ Route::group(['middleware' => ['auth']], function(){
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+
+Route::get('/auth/github/redirect',[PostController::class,'githubredirect'])->name('githublogin');
+Route::get('/auth/github/callback',[PostController::class,'githubcallback']);
+
+Route::get('/auth/google/redirect',[PostController::class,'googleredirect'])->name('googlelogin');
+Route::get('/auth/google/callback',[PostController::class,'googlecallback']);

@@ -11,10 +11,70 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
+
+    public function githubredirect(Request $request)
+    {
+        return Socialite::driver('github')->redirect();
+    }
+
+    public function githubcallback(Request $request)
+    {
+        $userdata = Socialite::driver('github')->stateless()->user();
+        $user = User::where('email', $userdata->email)->first();
+        if (!$user) {
+            $uuid=Str::uuid()->toString();
+            $user = new User();
+            $user->name = $userdata->name;
+            $user->email = $userdata->email;
+            $user->password = Hash::make($uuid.now());
+            $user->save();
+            Auth::login($user);
+            return redirect('/posts');
+            }
+        else{
+            Auth::login($user);
+            return redirect('/posts');
+        }
+    }
+
+    public function googleredirect(Request $request)
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function googlecallback(Request $request)
+    {
+        $userdata = Socialite::driver('google')->stateless()->user();
+        $user = User::where('email', $userdata->email)->first();
+        if (!$user) {
+            $uuid=Str::uuid()->toString();
+            $user = new User();
+            $user->name = $userdata->name;
+            $user->email = $userdata->email;
+            $user->password = Hash::make($uuid.now());
+            $user->save();
+            Auth::login($user);
+            return redirect('/posts');
+            }
+
+        else{
+            Auth::login($user);
+            return redirect('/posts');
+        }
+    }
+
+
+
+    
+
     public function index(){
         $posts = Post::paginate(5);
         return view('post.index', ['posts' => $posts]);

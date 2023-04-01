@@ -12,7 +12,8 @@ use Carbon\Carbon;
 class PostController extends Controller
 {
     public function index(){
-        $posts = Post::all();
+        //$posts = Post::paginate(5);
+        $posts = Post::with('user')->paginate(5);
 
         return PostResource::collection($posts);
 
