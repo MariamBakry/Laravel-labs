@@ -13,11 +13,13 @@ class Comment extends Model
     protected $fillable = [
         'description',
         'post_id',
-        'user_id'
+        'user_id',
+        'post_type'
     ];
 
     public function post(){
-        return $this->belongsTo(Post::class);
+        return $this->morphTo();
+        //return $this->belongsTo(Post::class);
     }
 
     public function user(){

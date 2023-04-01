@@ -83,7 +83,7 @@ class PostController extends Controller
     public function show($id){
         $post = Post::find($id);
         $users = User::all();
-        $comments = Comment::where('post_id', '=', $id)->get();
+        $comments = $post->comments;
         return view('post.show', [
             'post' => $post,
             'users' => $users,
@@ -136,7 +136,7 @@ class PostController extends Controller
         if($request->file('image')){
             $file= $request->file('image');
             $filename= date('YmdHi').$file->getClientOriginalName();
-            $file-> move(public_path('public/Image'), $filename);
+            $file-> move(public_path('public/public/Image'), $filename);
             $post['image']= $filename;
         }
         $post->save();

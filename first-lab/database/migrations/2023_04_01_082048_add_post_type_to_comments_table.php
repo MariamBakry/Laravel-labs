@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('posts', function (Blueprint $table) {
-                $table->dropColumn('image_path');
+        Schema::table('comments', function (Blueprint $table) {
+            $table->string('post_type')->after('id')->nullable();
         });
     }
-
 };

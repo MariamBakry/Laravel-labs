@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use App\Models\Comment;
 
 class Post extends Model
 {
@@ -25,7 +26,8 @@ class Post extends Model
     }
 
     public function comments(){
-        return $this->hasMany(Comment::class);
+        return $this->morphMany(Comment::class, 'post');
+        //return $this->hasMany(Comment::class);
     }
 
     public function getCreatedAtAttribute($date)
